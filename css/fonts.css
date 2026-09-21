@@ -1,0 +1,55 @@
+/* =========================================================
+   fonts.css  —  웹폰트 선언
+ 
+   [FreesentationVF 적용 방법]
+   1) 가변폰트(권장) : Freesentation-VF.woff2 파일을 ./fonts/ 폴더에 넣으세요.
+      → font-weight: 680 같은 세부 굵기가 정확히 표현됩니다.
+   2) 파일이 없으면 자동으로 아래 'Freesentation' 정적 웹폰트(CDN)로 대체됩니다.
+      → 이 경우 680은 700(Bold)으로 반올림되어 표시됩니다.
+ 
+   폰트 출처 : https://noonnu.cc/font_page/1369 (SIL OFL, 상업용 무료)
+   ========================================================= */
+
+/* ---------- 1) 가변폰트 (로컬 파일) ---------- */
+@font-face {
+    font-family: 'FreesentationVF';
+    src: url('../fonts/Freesentation-VF.woff2') format('woff2-variations'),
+        url('../fonts/Freesentation-VF.woff2') format('woff2');
+    font-weight: 100 900;
+    /* 가변 축(wght) 범위 */
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ---------- 2) 정적폰트 대체 (jsDelivr CDN) ---------- */
+@font-face {
+    font-family: 'Freesentation';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-4Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Freesentation';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-6SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Freesentation';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-7Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Freesentation';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-8ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}

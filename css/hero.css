@@ -1,0 +1,824 @@
+@charset "utf-8";
+
+/* =========================================================================
+   hero.css
+   -------------------------------------------------------------------------
+   [유지보수 가이드]
+   · 모든 수치는 "디자인 시안 px 숫자 × --u" 로 계산됩니다.
+       예) font-size: calc(var(--fs-headline) * var(--u));  →  150 × 1px = 150px
+   · --u 는 "1px 단위의 배율"입니다. 화면이 줄면 --u 가 같이 줄어
+     레이아웃 전체가 비율 그대로 축소됩니다.
+   · 크기를 바꾸고 싶으면 각 브레이크포인트의  ===== TOKEN =====  블록에 있는
+     숫자만 수정하세요. (단위 없이 시안 px 숫자만 적으면 됩니다)
+ 
+   [브레이크포인트]  ※ statcounter 아시아 모바일 해상도 상위 기준
+       PC      : 1280px 이상          (시안 기준 1920 × 1101)
+       Tablet  : 768px ~ 1279px       (iPad 768 / 820 / 1024 등)
+       Mobile  : 767px 이하           (430 / 414 / 412 / 393 / 390 / 384 / 375 / 360)
+========================================================================= */
+
+
+/* =========================================================================
+   0. 전역 변수 (색상 · 폰트 · 그라디언트)
+========================================================================= */
+:root {
+    /* ---- 폰트 ---- */
+    --font-head: 'FreesentationVF', 'Freesentation', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Malgun Gothic', sans-serif;
+
+    /* ---- 골드 그라디언트 (시안 공통) ---- */
+    --gold: linear-gradient(89deg,
+            #F8D250 0.4%,
+            #FEFCE7 28.97%,
+            #FFED87 47.23%,
+            #FCE051 72.05%,
+            #F9C94A 97.8%);
+    --gold-solid: #FCE051;
+    /* background-clip 미지원 브라우저 대체색 */
+
+    /* ---- 섹션 배경 ---- */
+    --hero-bg-color: #01091F;
+    --count-bg: linear-gradient(92deg,
+            #010080 5.55%,
+            #4D0084 51.83%,
+            #4D0082 74.97%,
+            #010080 98.11%);
+
+    /* ---- CTA 버튼 ---- */
+    --cta-border: #0055AC;
+    --cta-bg: linear-gradient(90deg, #0055AC 0%, #002346 100%);
+    --cta-glow: #8FA4CA;
+
+    /* ---- 구분선 ---- */
+    --divider-color: rgba(255, 255, 255, .85);
+
+    /* ---- 비율 단위 기본값 (각 섹션에서 재정의됩니다) ---- */
+    --u: 1px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+/* =========================================================================
+   1. 공통 유틸 : 골드 그라디언트 텍스트
+   -------------------------------------------------------------------------
+   · background-clip:text + 투명 글자색 조합입니다.
+   · 시안의 text-shadow 는 그라디언트 위에 검정이 덮여 탁해지므로
+     동일한 효과를 내는 filter:drop-shadow() 로 구현했습니다.
+========================================================================= */
+.gold {
+    background: var(--gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 calc(4.584 * var(--u)) calc(4.584 * var(--u)) rgba(0, 0, 0, .85));
+}
+
+/* 구형 브라우저 대체 */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .gold {
+        background: none;
+        color: var(--gold-solid);
+        -webkit-text-fill-color: var(--gold-solid);
+        text-shadow: 0 calc(4.584 * var(--u)) calc(4.584 * var(--u)) #000;
+    }
+}
+
+
+/* =========================================================================
+   2. HERO SECTION
+========================================================================= */
+.hero {
+    /* ===== TOKEN : PC (시안 1920 × 1101) ================================= */
+    --u: min(1px, 100vw / 1920);
+    /* 화면 비율 단위 */
+
+    --pad-top: 86;
+    /* 상단 여백 (라벨 윗선 위치) */
+    --fs-eyebrow: 28;
+    /* 1. 대한민국 교육 브랜드 대상 … */
+    --eyebrow-pad-y: 14;
+    /*    글자와 위아래 선 사이 간격 */
+    --eyebrow-line-w: 430;
+    /*    위아래 선 길이 */
+
+    --fs-title: 48;
+    /* 2. 교육부 평가인정 원격교육원 */
+    --ls-title: 1.92;
+    /*    letter-spacing */
+    --gap-title: 58;
+
+    --fs-headline: 150;
+    /* 3. 20년 연속 */
+    --lh-headline: 1.1;
+    --gap-headline: 7;
+
+    --fs-sub-plain: 28;
+    /* 4. 누적 과목수 */
+    --fs-sub-point: 36;
+    /* 5. 500만 돌파 기념! */
+    --ls-sub-point: 0.72;
+    --gap-sub: 57;
+    --gap-sub-inner: 18;
+    /*    두 문구 사이 간격 */
+
+    --coupon-w: 410;
+    /* 무료증정 쿠폰 */
+    --badge-w: 127;
+    /* 선착순 100명 뱃지 */
+    --badge-x: 341;
+    /*    쿠폰 좌측 기준 X */
+    --badge-y: -43;
+    /*    쿠폰 상단 기준 Y */
+    --gap-coupon: 45;
+
+    --cta-w: 345.965;
+    /* 6~7. 즉시 문의하러 가기 */
+    --cta-h: 66.233;
+    --cta-radius: 20;
+    --cta-border-w: 3;
+    --fs-cta: 20;
+    --gap-cta: 48;
+    /* ==================================================================== */
+
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1920 / 1101;
+    /* PC 는 시안 비율 그대로 유지 */
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--hero-bg-color) url('../img/hero/hero-bg.png') center center / cover no-repeat;
+}
+
+/* ---------- 2-1. 장식 레이어 ---------- */
+.hero__deco {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero__deco img {
+    position: absolute;
+}
+
+/* 트로피 : 시안 기준 우측 하단에 딱 맞도록 % 로 고정 */
+.hero__trophy {
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    /* 622 / 1920 */
+}
+
+/* 컨페티 (왼쪽 / 오른쪽 위) */
+.hero__boom--left {
+    left: 6.146%;
+    top: 27.066%;
+    width: 18.698%;
+}
+
+/* 359 / 1920 */
+.hero__boom--right {
+    left: 73.646%;
+    top: 4.087%;
+    width: 12.865%;
+}
+
+/* 247 / 1920 */
+
+/* 반짝임 */
+.hero__star--left {
+    left: 39.219%;
+    top: 26.432%;
+    width: 4.427%;
+}
+
+.hero__star--right {
+    left: 60.417%;
+    top: 36.335%;
+    width: 5.156%;
+}
+
+/* ---------- 2-2. 콘텐츠 레이어 ---------- */
+.hero__inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding-top: calc(var(--pad-top) * var(--u));
+    padding-inline: 20px;
+    text-align: center;
+}
+
+/* 1. 상단 라벨 + 위아래 선 */
+.hero__eyebrow {
+    position: relative;
+    padding: calc(var(--eyebrow-pad-y) * var(--u)) calc(30 * var(--u));
+    font-family: var(--font-body);
+    font-size: calc(var(--fs-eyebrow) * var(--u));
+    font-weight: 400;
+    line-height: 1.2;
+    color: #fff;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.hero__eyebrow::before,
+.hero__eyebrow::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(var(--eyebrow-line-w) * var(--u));
+    max-width: 100vw;
+    height: max(1px, calc(2 * var(--u)));
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            #fff 20%, #fff 80%,
+            rgba(255, 255, 255, 0) 100%);
+}
+
+.hero__eyebrow::before {
+    top: 0;
+}
+
+.hero__eyebrow::after {
+    bottom: 0;
+}
+
+/* 2. 서브 타이틀 */
+.hero__title {
+    margin-top: calc(var(--gap-title) * var(--u));
+    font-family: var(--font-head);
+    font-size: calc(var(--fs-title) * var(--u));
+    font-weight: 680;
+    font-variation-settings: 'wght' 680;
+    line-height: 1.2;
+    letter-spacing: calc(var(--ls-title) * var(--u));
+    white-space: nowrap;
+}
+
+/* 3. 메인 카피 */
+.hero__headline {
+    margin-top: calc(var(--gap-headline) * var(--u));
+    font-family: var(--font-head);
+    font-size: calc(var(--fs-headline) * var(--u));
+    font-weight: 680;
+    font-variation-settings: 'wght' 680;
+    line-height: var(--lh-headline);
+    white-space: nowrap;
+    margin-bottom: 2rem;
+}
+
+/* 4~5. 누적 과목수 500만 돌파 기념! */
+.hero__sub {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: calc(var(--gap-sub-inner) * var(--u));
+    margin-top: calc(var(--gap-sub) * var(--u));
+    white-space: nowrap;
+    margin: 0;
+}
+
+.hero__sub-plain {
+    font-family: var(--font-body);
+    font-size: calc(var(--fs-sub-plain) * var(--u));
+    font-weight: 400;
+    line-height: 1.2;
+    color: #fff;
+}
+
+.hero__sub-point {
+    font-family: var(--font-head);
+    font-size: calc(var(--fs-sub-point) * var(--u));
+    font-weight: 680;
+    font-variation-settings: 'wght' 680;
+    line-height: 1.2;
+    letter-spacing: calc(var(--ls-sub-point) * var(--u));
+}
+
+/* 쿠폰 + 뱃지 */
+.hero__coupon {
+    position: relative;
+    width: calc(var(--coupon-w) * var(--u));
+    margin-top: calc(var(--gap-coupon) * var(--u));
+}
+
+.hero__coupon-img {
+    width: 100%;
+}
+
+.hero__coupon-badge {
+    position: absolute;
+    left: calc(var(--badge-x) * var(--u));
+    top: calc(var(--badge-y) * var(--u));
+    width: calc(var(--badge-w) * var(--u));
+}
+
+/* 6~7. CTA 버튼 */
+.hero__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(var(--cta-w) * var(--u));
+    height: calc(var(--cta-h) * var(--u));
+    margin-top: calc(var(--gap-cta) * var(--u));
+    border: max(1px, calc(var(--cta-border-w) * var(--u))) solid var(--cta-border);
+    border-radius: calc(var(--cta-radius) * var(--u));
+    background: var(--cta-bg);
+    box-shadow: 0 calc(2 * var(--u)) calc(20 * var(--u)) 0 var(--cta-glow);
+    font-family: var(--font-body);
+    font-size: calc(var(--fs-cta) * var(--u));
+    font-weight: 600;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    transition: transform .25s ease, box-shadow .25s ease;
+    text-decoration: none;
+}
+
+.hero__cta:hover,
+.hero__cta:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 calc(6 * var(--u)) calc(28 * var(--u)) 0 var(--cta-glow);
+}
+
+.hero__cta:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================================
+   3. COUNT SECTION
+========================================================================= */
+.count {
+    /* ===== TOKEN : PC (시안 1920 × 331) ================================= */
+    --u: min(1px, 100vw / 1920);
+
+    --count-h: 331;
+    --fs-label: 36;
+    /* 누적 수강생 / 조기졸업생 … */
+    --fs-num: 72;
+    /* 152,782+ / 5,824+ … */
+    --ls-num: 1.44;
+    --gap-count: 51;
+    /* 라벨 ↔ 숫자 간격 */
+    --divider-h: 187;
+    /* 세로 구분선 높이 */
+    /* ==================================================================== */
+
+    width: 100%;
+    height: calc(var(--count-h) * var(--u));
+    background: var(--count-bg);
+}
+
+.count__list {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding-top: 3rem;
+}
+
+.count__item {
+    position: relative;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding-inline: 8px;
+    text-align: center;
+}
+
+/* 세로 구분선 */
+.count__item+.count__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: calc(var(--divider-h) * var(--u));
+    background: var(--divider-color);
+}
+
+.count__label {
+    font-family: var(--font-body);
+    font-size: calc(var(--fs-label) * var(--u));
+    font-weight: 400;
+    line-height: 1.2;
+    color: #fff;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.count__num {
+    font-family: var(--font-head);
+    font-size: calc(var(--fs-num) * var(--u));
+    font-weight: 680;
+    font-variation-settings: 'wght' 680;
+    line-height: 1.2;
+    letter-spacing: calc(var(--ls-num) * var(--u));
+    white-space: nowrap;
+    /* 숫자가 올라갈 때 폭이 흔들리지 않도록 */
+    font-variant-numeric: tabular-nums;
+}
+
+.count__num.gold {
+    filter: drop-shadow(0 calc(7.065 * var(--u)) calc(7.065 * var(--u)) rgba(0, 0, 0, .85));
+}
+
+
+/* =========================================================================
+   4. TABLET  (768px ~ 1279px)
+      iPad mini 768 / iPad Air 820 / iPad Pro 1024 …
+========================================================================= */
+@media (max-width: 1279px) {
+
+    .hero {
+        /* ===== TOKEN : Tablet ============================================ */
+        /* 768px 이하로는 더 작아지지 않도록 0.72 에서 하한을 둡니다 */
+        --u: clamp(0.72px, 100vw / 1430, 0.9px);
+
+        --pad-top: 70;
+        --fs-eyebrow: 22;
+        --eyebrow-pad-y: 13;
+        --eyebrow-line-w: 360;
+
+        --fs-title: 36;
+        --ls-title: 1.44;
+        --gap-title: 42;
+
+        --fs-headline: 112;
+        --gap-headline: 6;
+
+        --fs-sub-plain: 21;
+        --fs-sub-point: 27;
+        --gap-sub: 42;
+        --gap-sub-inner: 14;
+
+        --coupon-w: 310;
+        --badge-w: 96;
+        --badge-x: 258;
+        --badge-y: -33;
+        --gap-coupon: 34;
+
+        --cta-w: 300;
+        --cta-h: 58;
+        --cta-radius: 16;
+        --fs-cta: 19;
+        --gap-cta: 38;
+        /* ================================================================ */
+
+        /* 높이 고정 해제 : 콘텐츠 + 트로피 영역만큼 자동으로 늘어납니다 */
+        aspect-ratio: auto;
+        padding-bottom: 40vw;
+        /* 트로피가 들어갈 하단 영역 */
+    }
+
+    .hero__inner {
+        height: auto;
+        padding-bottom: calc(20 * var(--u));
+    }
+
+    .hero__trophy {
+        width: 36%;
+        right: -2%;
+    }
+
+    .hero__boom--left {
+        left: 2%;
+        top: 46%;
+        width: 20%;
+    }
+
+    .hero__boom--right {
+        left: 76%;
+        top: 2%;
+        width: 15%;
+    }
+
+    .hero__star--left {
+        left: 24%;
+        top: 26%;
+        width: 5.5%;
+    }
+
+    .hero__star--right {
+        left: 72%;
+        top: 33%;
+        width: 6%;
+    }
+
+    .count {
+        /* ===== TOKEN : Tablet ============================================ */
+        --u: clamp(0.72px, 100vw / 1430, 0.9px);
+
+        --count-h: 280;
+        --fs-label: 30;
+        --fs-num: 58;
+        --ls-num: 1.2;
+        --gap-count: 32;
+        --divider-h: 150;
+        /* ================================================================ */
+    }
+}
+
+
+/* =========================================================================
+   5. MOBILE  (767px 이하)
+      430 / 414 / 412 / 393 / 390 / 384 / 375 / 360 대응
+========================================================================= */
+@media (max-width: 767px) {
+
+    .hero {
+        /* ===== TOKEN : Mobile (시안 기준 폭 390) ========================== */
+        /* 390 에서 1배, 360 에서 0.92배, 큰 화면에서는 1.45배까지만 확대 */
+        --u: min(1.45px, 100vw / 390);
+
+        --pad-top: 44;
+        --fs-eyebrow: 14;
+        --eyebrow-pad-y: 10;
+        --eyebrow-line-w: 260;
+
+        --fs-title: 24;
+        --ls-title: 0.96;
+        --gap-title: 26;
+
+        --fs-headline: 72;
+        --gap-headline: 4;
+
+        --fs-sub-plain: 14;
+        --fs-sub-point: 19;
+        --ls-sub-point: 0.4;
+        --gap-sub: 26;
+        --gap-sub-inner: 8;
+
+        --coupon-w: 212;
+        --badge-w: 66;
+        --badge-x: 176;
+        --badge-y: -22;
+        --gap-coupon: 24;
+
+        --cta-w: 240;
+        --cta-h: 48;
+        --cta-radius: 14;
+        --cta-border-w: 2;
+        --fs-cta: 15;
+        --gap-cta: 26;
+        /* ================================================================ */
+
+        aspect-ratio: auto;
+        padding-bottom: 47vw;
+        /* 트로피 영역 */
+        background-position: 62% center;
+    }
+
+    .hero__inner {
+        height: auto;
+        padding-inline: 16px;
+        padding-bottom: 12px;
+    }
+
+    .hero__trophy {
+        width: 56%;
+        right: -4%;
+    }
+
+    .hero__boom--left {
+        left: -2%;
+        bottom: 6%;
+        top: auto;
+        width: 34%;
+    }
+
+    .hero__boom--right {
+        left: 78%;
+        top: 49%;
+        width: 25%;
+    }
+
+    .hero__star--left {
+        left: 12%;
+        top: 23%;
+        width: 9%;
+    }
+
+    .hero__star--right {
+        left: 78%;
+        top: 28%;
+        width: 10%;
+    }
+
+    .count {
+        /* ===== TOKEN : Mobile ============================================ */
+        --u: min(1.45px, 100vw / 390);
+
+        --fs-label: 18;
+        --fs-num: 30;
+        --ls-num: 0.6;
+        --gap-count: 10;
+        --count-pad: 24;
+        /* 위아래 안쪽 여백 */
+        /* ================================================================ */
+
+        height: auto;
+        padding: calc(var(--count-pad) * var(--u)) 0;
+    }
+
+    /* 2 × 2 그리드 */
+    .count__list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0;
+    }
+
+    .count__item {
+        padding: calc(14 * var(--u)) 6px;
+    }
+
+    /* 그리드용 구분선 재정의 */
+    .count__item+.count__item::before {
+        content: none;
+    }
+
+    .count__item:nth-child(2n)::after,
+    .count__item:nth-child(n + 3)::before {
+        content: '';
+        position: absolute;
+        background: rgba(255, 255, 255, .45);
+    }
+
+    /* 세로선 (2, 4번째 항목 왼쪽) */
+    .count__item:nth-child(2n)::after {
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 70%;
+    }
+
+    /* 가로선 (3, 4번째 항목 위쪽) */
+    .count__item:nth-child(n + 3)::before {
+        left: 8%;
+        top: 0;
+        width: 84%;
+        height: 1px;
+    }
+}
+
+/* ---------- 아주 좁은 화면 (360px 이하) 추가 보정 ---------- */
+@media (max-width: 360px) {
+    .hero {
+        --fs-headline: 68;
+        --coupon-w: 200;
+    }
+
+    .count {
+        --fs-num: 27;
+    }
+}
+
+/* ---------- 가로 모드 낮은 높이 대응 ---------- */
+@media (max-width: 1279px) and (orientation: landscape) and (max-height: 500px) {
+    .hero {
+        padding-bottom: 34vw;
+    }
+
+    .hero__trophy {
+        width: 26%;
+    }
+}
+
+
+/* =========================================================================
+   6. 애니메이션
+      · JS 가 <body> 에 .is-animated 를 붙일 때만 동작합니다.
+      · JS 가 없거나 꺼져 있어도 모든 요소는 정상적으로 보입니다.
+========================================================================= */
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes heroTwinkle {
+
+    0%,
+    100% {
+        opacity: .25;
+        transform: scale(.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes heroGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 calc(2 * var(--u)) calc(20 * var(--u)) 0 var(--cta-glow);
+    }
+
+    50% {
+        box-shadow: 0 calc(2 * var(--u)) calc(34 * var(--u)) 0 var(--cta-glow);
+    }
+}
+
+/* fill-mode 를 backwards 로 두어야 애니메이션이 끝난 뒤
+   :hover 등 일반 스타일이 정상 동작합니다. */
+.is-animated .hero__eyebrow,
+.is-animated .hero__title,
+.is-animated .hero__headline,
+.is-animated .hero__sub,
+.is-animated .hero__coupon {
+    animation: heroFadeUp .8s cubic-bezier(.22, .61, .36, 1) backwards;
+}
+
+.is-animated .hero__eyebrow {
+    animation-delay: .05s;
+}
+
+.is-animated .hero__title {
+    animation-delay: .15s;
+}
+
+.is-animated .hero__headline {
+    animation-delay: .25s;
+}
+
+.is-animated .hero__sub {
+    animation-delay: .35s;
+}
+
+.is-animated .hero__coupon {
+    animation-delay: .45s;
+}
+
+/* 버튼 : 등장 → 은은한 글로우 반복 */
+.is-animated .hero__cta {
+    animation: heroFadeUp .8s cubic-bezier(.22, .61, .36, 1) .55s backwards,
+        heroGlow 2.6s ease-in-out 1.6s infinite;
+}
+
+/* 쿠폰 둥실 / 반짝임 */
+.is-animated .hero__coupon-img {
+    animation: heroFloat 3.2s ease-in-out 1.4s infinite;
+}
+
+.is-animated .hero__star {
+    animation: heroTwinkle 2.4s ease-in-out infinite;
+}
+
+.is-animated .hero__star--right {
+    animation-delay: 1.2s;
+}
+
+/* 접근성 : 모션 최소화 설정을 켠 사용자 */
+@media (prefers-reduced-motion: reduce) {
+
+    .is-animated .hero__eyebrow,
+    .is-animated .hero__title,
+    .is-animated .hero__headline,
+    .is-animated .hero__sub,
+    .is-animated .hero__coupon,
+    .is-animated .hero__coupon-img,
+    .is-animated .hero__star,
+    .is-animated .hero__cta {
+        animation: none !important;
+    }
+
+    .hero__cta {
+        transition: none;
+    }
+}
