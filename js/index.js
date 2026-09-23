@@ -200,29 +200,99 @@
 })();
 
 /* =========================================================================
-   section3.js  —  화면에 들어오면 원 화살표 1회 회전 (선택 사항)
-   · 이 파일을 빼도 section3 는 정상적으로 보입니다.
+   section3.js  —  이벤트 배너 슬라이드 (Swiper)
+   -------------------------------------------------------------------------
+   · autoplay 로 무한 반복(loop)합니다.
+   · 마우스를 올리거나 키보드로 들어오면 잠시 멈추고, 벗어나면 다시 재생됩니다.
+   · 오른쪽 아래 버튼으로 자동 재생을 직접 끄고 켤 수 있습니다.
+   · '동작 줄이기' 설정 사용자는 자동 재생이 꺼진 상태로 시작합니다.
+   · 배너를 추가/삭제해도 이 파일은 고칠 필요가 없습니다.
+   · Swiper 가 로드되지 않으면 첫 배너만 그대로 노출됩니다.
+ 
+   [속도 조절]  아래 SPEED / DELAY 값만 바꾸면 됩니다.
 ========================================================================= */
 (function () {
     'use strict';
 
+    var DELAY = 4500;   // 배너가 머무는 시간(ms)
+    var SPEED = 700;    // 넘어가는 애니메이션 시간(ms)
+
     var section = document.querySelector('.section3');
     if (!section) return;
 
-    if (!('IntersectionObserver' in window)) {
-        section.classList.add('is-in');
-        return;
+    var el = section.querySelector('.section3__swiper');
+    if (!el || typeof Swiper === 'undefined') return;   // Swiper 미로드 시 그냥 첫 배너만 노출
+
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var toggle = section.querySelector('.section3__toggle');
+
+    var swiper = new Swiper(el, {
+        loop: true,
+        speed: SPEED,
+        autoHeight: false,
+        autoplay: reduced ? false : {
+            delay: DELAY,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true
+        },
+        pagination: {
+            el: section.querySelector('.section3__pagination'),
+            clickable: true,
+            renderBullet: function (index, className) {
+                return '<button type="button" class="' + className +
+                    '" aria-label="' + (index + 1) + '번째 배너 보기"></button>';
+            }
+        },
+        navigation: {
+            prevEl: section.querySelector('.section3__nav--prev'),
+            nextEl: section.querySelector('.section3__nav--next')
+        },
+        a11y: {
+            containerMessage: '이벤트 배너',
+            slideLabelMessage: '{{index}} / {{slidesLength}}'
+        },
+        keyboard: { enabled: true, onlyInViewport: true }
+    });
+
+    /* ---------- 자동 재생 켜기/끄기 버튼 ---------- */
+    function setToggle(playing) {
+        if (!toggle) return;
+        toggle.setAttribute('aria-pressed', playing ? 'false' : 'true');
+        toggle.setAttribute('aria-label', playing ? '자동 재생 멈춤' : '자동 재생 시작');
+    }
+    setToggle(!reduced);
+
+    if (toggle) {
+        toggle.addEventListener('click', function () {
+            if (!swiper.autoplay) return;
+            if (swiper.autoplay.running) {
+                swiper.autoplay.stop();
+                setToggle(false);
+            } else {
+                swiper.autoplay.start();
+                setToggle(true);
+            }
+        });
     }
 
-    var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            section.classList.add('is-in');
-            observer.disconnect();
-        });
-    }, { threshold: 0.35 });
+    /* ---------- 키보드 포커스가 배너 안에 있을 때는 멈춤 ---------- */
+    el.addEventListener('focusin', function () {
+        if (swiper.autoplay && swiper.autoplay.running) swiper.autoplay.pause();
+    });
+    el.addEventListener('focusout', function () {
+        if (swiper.autoplay && toggle && toggle.getAttribute('aria-pressed') === 'false') swiper.autoplay.resume();
+    });
 
-    observer.observe(section);
+    /* ---------- 화면 밖에서는 멈춤 (배터리 · 성능) ---------- */
+    if ('IntersectionObserver' in window && swiper.autoplay) {
+        new IntersectionObserver(function (entries) {
+            if (!swiper.autoplay) return;
+            var on = toggle ? toggle.getAttribute('aria-pressed') === 'false' : true;
+            if (entries[0].isIntersecting) { if (on) swiper.autoplay.start(); }
+            else swiper.autoplay.stop();
+        }, { threshold: 0.2 }).observe(section);
+    }
+
 })();
 
 /* =========================================================================

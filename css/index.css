@@ -27,12 +27,7 @@
     --font-body: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, 'Malgun Gothic', sans-serif;
 
     /* ---- 골드 그라디언트 (시안 공통) ---- */
-    --gold: linear-gradient(89deg,
-            #F8D250 0.4%,
-            #FEFCE7 28.97%,
-            #FFED87 47.23%,
-            #FCE051 72.05%,
-            #F9C94A 97.8%);
+    --gold: linear-gradient(89deg, #C28E55 0.4%, #FEFCE7 28.97%, #CA9C68 47.23%, #C99B67 72.05%, #D2AC7D 97.8%);
     --gold-solid: #FCE051;
     /* background-clip 미지원 브라우저 대체색 */
 
@@ -150,7 +145,7 @@ body {
     /* PC 는 시안 비율 그대로 유지 */
     overflow: hidden;
     isolation: isolate;
-    background: var(--hero-bg-color) url('../img/hero/hero-bg.png') center center / cover no-repeat;
+    background: var(--hero-bg-color) url('../img/hero/hreo-bg2.png') center center / cover no-repeat;
 }
 
 /* ---------- 2-1. 장식 레이어 ---------- */
@@ -329,15 +324,14 @@ body {
     width: calc(var(--cta-w) * var(--u));
     height: calc(var(--cta-h) * var(--u));
     margin-top: calc(var(--gap-cta) * var(--u));
-    border: max(1px, calc(var(--cta-border-w) * var(--u))) solid var(--cta-border);
     border-radius: calc(var(--cta-radius) * var(--u));
-    background: var(--cta-bg);
+    background: #fff;
     box-shadow: 0 calc(2 * var(--u)) calc(20 * var(--u)) 0 var(--cta-glow);
     font-family: var(--font-body);
     font-size: calc(var(--fs-cta) * var(--u));
     font-weight: 600;
     line-height: 1;
-    color: #fff;
+    color: #0D2B84;
     text-align: center;
     white-space: nowrap;
     transition: transform .25s ease, box-shadow .25s ease;
@@ -376,7 +370,7 @@ body {
 
     width: 100%;
     height: calc(var(--count-h) * var(--u));
-    background: var(--count-bg);
+    background: #000927;
 }
 
 .count__list {
@@ -824,114 +818,206 @@ body {
 }
 
 /* =========================================================================
-   section1.css
+   section1.css  (수정본)
    -------------------------------------------------------------------------
    시안 기준 : PC 1920 × 1238
-   hero.css 와 동일하게 "시안 px 숫자 × --u" 방식으로 작성되어 있습니다.
-   크기 수정은 각 브레이크포인트의  ===== TOKEN =====  블록만 고치면 됩니다.
+   다른 섹션과 동일하게 "시안 px 숫자 × --u" 방식입니다.
+   크기 수정은 각 브레이크포인트의  ===== TOKEN =====  블록 숫자만 고치세요.
+ 
+   [이번 수정 내용]
+   1. 배경   : linear-gradient(180deg, #2962F6 0%, #0031B2 100%)
+   2. 조명   : 양옆에서 비스듬히 내려오는 빛 2개 (CSS 그라디언트, 이미지 아님)
+   3. 색상   : 민트 → 흰색/파랑 계열로 전체 변경, 수상 문구는 금색 그라디언트
+   4. 월계수 : 수상 문구 양옆에 추가
 ========================================================================= */
 
+
+/* -------------------------------------------------------------------------
+   섹션 자체 안전장치 (전역 리셋이 달라도 틀어지지 않도록)
+------------------------------------------------------------------------- */
+:where(.section1),
+:where(.section1) *,
+:where(.section1) *::before,
+:where(.section1) *::after {
+    box-sizing: border-box;
+}
+
+:where(.section1) :where(h2, p) {
+    margin: 0;
+    padding: 0;
+}
+
+:where(.section1) :where(img) {
+    display: block;
+    max-width: 100%;
+}
+
+
 .section1 {
+    /* ---- 색상 · 폰트 ---- */
+    --s1-top: #2962F6;
+    --s1-bottom: #0031B2;
+    --s1-font: var(--font-head, 'FreesentationVF', 'Freesentation', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
+    /* 수상 문구 금색 (시안에서 추출) */
+    --s1-gold: linear-gradient(89deg, #C99C67 0.4%, #FEFCE7 28.97%, #CEA472 47.23%, #CA9C67 72.05%, #C99C67 97.8%);
+
     /* ===== TOKEN : PC (시안 1920 × 1238) ================================ */
     --u: min(1px, 100vw / 1920);
 
-    --pad-top: 137;
-    /* 섹션 위쪽 여백 */
-    --pad-bottom: 94;
-    /* 섹션 아래쪽 여백 */
+    --pad-top: 113;
+    --pad-bottom: 49;
 
     --fs-eyebrow: 26;
     /* 20년의 교육 경험, … */
     --lh-eyebrow: 1.4;
-
     --fs-heading: 56;
     /* 대한민국 최초 평생 교육원 */
     --lh-heading: 1.3;
     --gap-heading: 11;
 
+    /* 탭 */
     --gap-tabs: 85;
-    /* 탭 메뉴 위 여백 */
     --tab-w: 180;
-    /* 탭 1개 최소 폭 */
     --tab-h: 70;
     --tab-gap: 45;
-    /* 탭 사이 간격 */
     --tab-radius: 14;
     --tab-pad-x: 16;
     --fs-tab-sm: 20;
-    /* 탭 윗줄 (11년 연속 …) */
     --fs-tab-lg: 24;
-    /* 탭 아랫줄 (교육 브랜드 대상 …) */
     --tab-line-gap: 6;
 
-    --gap-sub: 70;
-    /* 2022년 대한민국 교육브랜드 대상 */
+    /* 수상 문구 */
+    --gap-sub: 65;
     --fs-sub: 30;
+    /* 2022년 대한민국 교육브랜드 대상 */
     --lh-sub: 1.4;
+    --gap-award: 38;
+    --fs-award: 50;
+    /* 성인 이러닝 부문 */
+    --gap-award-point: 2;
+    --fs-award-point: 72;
+    /* 11년 연속 수상 */
+    --lh-award: 1.2;
+    --laurel-w: 78;
+    /* 월계수 */
+    --laurel-x: 290;
+    /* 가운데에서 바깥쪽으로 얼마나 */
+    --laurel-y: 4;
 
-    --gap-award: 4;
-    /* 성인 이러닝 부문 11년 연속 수상 */
-    --fs-award: 36;
-    /* 흰색 부분 */
-    --fs-award-point: 48;
-    /* 골드 그라디언트 부분 */
-    --lh-award: 1.3;
-    --gap-award-inner: 12;
-
-    --gap-visual: 63;
-    /* 트로피 위 여백 */
+    --gap-visual: 51;
     --visual-w: 265;
-    /* 트로피 폭 */
+    /* 트로피 */
 
-    --gap-desc: 76;
-    /* 하단 설명문 위 여백 */
+    --gap-desc: 42;
     --fs-desc: 24;
     --lh-desc: 1.5;
+
+    /* 조명 */
+    --light-w: 620;
+    /* 빛줄기 폭 */
+    --light-h: 1500;
+    /* 빛줄기 길이 */
+    --light-x: 810;
+    /* 화면 중앙 ~ 빛줄기 시작점(위쪽) 거리 */
+    --light-top: -120;
+    --light-rot: 20deg;
+    /* 아래로 내려오면서 안쪽으로 기우는 각도 */
+    --light-blur: 45;
+    --light-alpha: .23;
+
+    /* 폭죽 (화면 중앙 기준) */
+    --b1-x: -494;
+    --b1-y: 34;
+    --b1-w: 228;
+    /* 파란 폭죽 (왼쪽 위) */
+    --b2-x: 661;
+    --b2-y: 642;
+    --b2-w: 200;
+    /* 초록 폭죽 (오른쪽) */
+    --b3-x: -774;
+    --b3-y: 898;
+    --b3-w: 173;
+    /* 노란 폭죽 (왼쪽 아래) */
     /* ==================================================================== */
 
     position: relative;
     width: 100%;
     overflow: hidden;
     isolation: isolate;
-    /* 4. 섹션 배경 */
-    background: linear-gradient(180deg, #7126FF 0%, #0A038D 47.33%, #270069 94.65%);
+    /* 1. 배경 */
+    background: linear-gradient(180deg, var(--s1-top) 0%, var(--s1-bottom) 100%);
 }
 
-/* ---------- 장식(폭죽) 레이어 ---------- */
+
+/* =========================================================================
+   장식 : 조명 + 폭죽
+========================================================================= */
 .section1__deco {
     position: absolute;
     inset: 0;
     z-index: 0;
+    overflow: hidden;
     pointer-events: none;
 }
 
-.section1__deco img {
+/* 2. 양옆 조명 — 가로는 그라디언트, 세로는 mask 로 서서히 사라짐 */
+.section1__light {
     position: absolute;
+    top: calc(var(--light-top) * var(--u));
+    width: calc(var(--light-w) * var(--u));
+    height: calc(var(--light-h) * var(--u));
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, var(--light-alpha)) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, .6) 0%, #000 26%, #000 46%, transparent 84%);
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, .6) 0%, #000 26%, #000 46%, transparent 84%);
+    filter: blur(calc(var(--light-blur) * var(--u)));
+}
+
+.section1__light--l {
+    left: calc(50% - (var(--light-x) + var(--light-w) / 2) * var(--u));
+    transform: rotate(calc(var(--light-rot) * -1));
+    /* 아래로 갈수록 안쪽(오른쪽)으로 */
+    transform-origin: top center;
+}
+
+.section1__light--r {
+    left: calc(50% + (var(--light-x) - var(--light-w) / 2) * var(--u));
+    transform: rotate(var(--light-rot));
+    /* 아래로 갈수록 안쪽(왼쪽)으로 */
+    transform-origin: top center;
+}
+
+/* 폭죽 */
+.section1__boom {
+    position: absolute;
+    height: auto;
 }
 
 .section1__boom--1 {
-    left: 15.938%;
-    top: 4.039%;
-    width: 11.875%;
+    left: calc(50% + var(--b1-x) * var(--u));
+    top: calc(var(--b1-y) * var(--u));
+    width: calc(var(--b1-w) * var(--u));
 }
 
-/* 파란 폭죽 */
 .section1__boom--2 {
-    left: 73.698%;
-    top: 38.772%;
-    width: 10.417%;
+    left: calc(50% + var(--b2-x) * var(--u));
+    top: calc(var(--b2-y) * var(--u));
+    width: calc(var(--b2-w) * var(--u));
 }
 
-/* 초록 폭죽 */
 .section1__boom--3 {
-    left: 27.760%;
-    top: 74.313%;
-    width: 6.667%;
+    left: calc(50% + var(--b3-x) * var(--u));
+    top: calc(var(--b3-y) * var(--u));
+    width: calc(var(--b3-w) * var(--u));
+    opacity: .9;
 }
 
-/* 노란 폭죽 */
 
-/* ---------- 콘텐츠 ---------- */
+/* =========================================================================
+   콘텐츠
+========================================================================= */
 .section1__inner {
     position: relative;
     z-index: 1;
@@ -939,39 +1025,32 @@ body {
     flex-direction: column;
     align-items: center;
     padding: calc(var(--pad-top) * var(--u)) 20px calc(var(--pad-bottom) * var(--u));
+    font-family: var(--s1-font);
+    color: #fff;
     text-align: center;
+    word-break: keep-all;
 }
 
-/* 상단 라벨 */
 .section1__eyebrow {
-    font-family: var(--font-head);
-    font-size: calc(var(--fs-eyebrow) * var(--u));
-    font-weight: 400;
+    font-size: max(12px, calc(var(--fs-eyebrow) * var(--u)));
+    font-weight: 500;
     font-variation-settings: 'wght' 500;
     line-height: var(--lh-eyebrow);
-    color: #fff;
 }
 
-/* 메인 타이틀 */
+/* 3. 전체 흰색 (기존 민트 포인트 제거) */
 .section1__heading {
     margin-top: calc(var(--gap-heading) * var(--u));
-    font-family: var(--font-head);
     font-size: calc(var(--fs-heading) * var(--u));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
     line-height: var(--lh-heading);
     color: #fff;
-    word-break: keep-all;
-}
-
-/* 1. 포인트 컬러 */
-.section1__heading .point {
-    color: #3BD7A0;
 }
 
 
 /* =========================================================================
-   2. 탭 메뉴
+   탭 메뉴
 ========================================================================= */
 .section1__tabs {
     display: flex;
@@ -990,21 +1069,17 @@ body {
     min-width: calc(var(--tab-w) * var(--u));
     height: calc(var(--tab-h) * var(--u));
     padding-inline: calc(var(--tab-pad-x) * var(--u));
-    border: max(1px, calc(2 * var(--u))) solid #3BD7A0;
+    border: max(1px, calc(2 * var(--u))) solid rgba(255, 255, 255, .7);
     border-radius: calc(var(--tab-radius) * var(--u));
-    background: rgba(10, 3, 141, .18);
+    background: transparent;
     color: #fff;
     white-space: nowrap;
-    transition: background-color .25s ease, color .25s ease,
-        box-shadow .25s ease, transform .25s ease;
-}
-
-.section1__tab:hover {
     cursor: pointer;
+    font-family: inherit;
+    transition: background-color .25s ease, color .25s ease, box-shadow .25s ease;
 }
 
 .section1__tab-sm {
-    font-family: var(--font-head);
     font-size: calc(var(--fs-tab-sm) * var(--u));
     font-weight: 400;
     font-variation-settings: 'wght' 400;
@@ -1012,7 +1087,6 @@ body {
 }
 
 .section1__tab-lg {
-    font-family: var(--font-head);
     font-size: calc(var(--fs-tab-lg) * var(--u));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
@@ -1021,15 +1095,16 @@ body {
 
 .section1__tab:hover,
 .section1__tab:focus-visible {
-    background: rgba(59, 215, 160, .18);
+    background: rgba(255, 255, 255, .15);
     outline: none;
 }
 
-/* 선택된 탭 */
+/* 선택된 탭 : 흰 배경 + 파란 글자 */
 .section1__tab[aria-selected="true"] {
-    background: #3BD7A0;
-    color: #19196F;
-    box-shadow: 0 0 calc(24 * var(--u)) rgba(59, 215, 160, .55);
+    border-color: #fff;
+    background: #fff;
+    color: var(--s1-top);
+    box-shadow: 0 0 calc(26 * var(--u)) rgba(255, 255, 255, .55);
 }
 
 
@@ -1044,39 +1119,66 @@ body {
     display: none;
 }
 
-/* 2022년 대한민국 교육브랜드 대상 */
 .section1__sub {
     margin-top: calc(var(--gap-sub) * var(--u));
-    margin-bottom: 0;
-    font-family: var(--font-head);
-    font-size: calc(var(--fs-sub) * var(--u));
+    font-size: max(12px, calc(var(--fs-sub) * var(--u)));
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: var(--lh-sub);
     color: #fff;
 }
 
-/* 성인 이러닝 부문 11년 연속 수상 */
+/* ---------- 수상 문구 + 월계수 ---------- */
 .section1__award {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    gap: calc(var(--gap-award-inner) * var(--u));
+    position: relative;
     margin-top: calc(var(--gap-award) * var(--u));
-    font-family: var(--font-head);
-    font-size: calc(var(--fs-award) * var(--u));
-    font-weight: 700;
-    font-variation-settings: 'wght' 700;
-    line-height: var(--lh-award);
-    color: #fff;
 }
 
-/* 3. 골드 그라디언트 (.gold 는 hero.css 의 공통 클래스) */
-.section1__award .point {
-    font-size: calc(var(--fs-award-point) * var(--u));
+.section1__laurel {
+    position: absolute;
+    top: calc(var(--laurel-y) * var(--u));
+    width: calc(var(--laurel-w) * var(--u));
+    height: auto;
+}
+
+.section1__laurel--l {
+    left: calc(50% - var(--laurel-x) * var(--u));
+}
+
+.section1__laurel--r {
+    right: calc(50% - var(--laurel-x) * var(--u));
+}
+
+.section1__award-line,
+.section1__award-point {
     font-weight: 800;
     font-variation-settings: 'wght' 800;
+    line-height: var(--lh-award);
+    background: var(--s1-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 calc(4 * var(--u)) calc(5 * var(--u)) rgba(0, 20, 80, .45));
+}
+
+.section1__award-line {
+    font-size: calc(var(--fs-award) * var(--u));
+}
+
+.section1__award-point {
+    margin-top: calc(var(--gap-award-point) * var(--u));
+    font-size: calc(var(--fs-award-point) * var(--u));
+}
+
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+
+    .section1__award-line,
+    .section1__award-point {
+        background: none;
+        color: #E8CFA5;
+        -webkit-text-fill-color: #E8CFA5;
+    }
 }
 
 /* 트로피 */
@@ -1088,17 +1190,11 @@ body {
 /* 하단 설명문 */
 .section1__desc {
     margin-top: calc(var(--gap-desc) * var(--u));
-    font-family: var(--font-head);
-    font-size: calc(var(--fs-desc) * var(--u));
+    font-size: max(12px, calc(var(--fs-desc) * var(--u)));
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: var(--lh-desc);
-    color: rgba(255, 255, 255, .92);
-    word-break: keep-all;
-}
-
-.section1__desc br {
-    display: inline;
+    color: rgba(255, 255, 255, .95);
 }
 
 
@@ -1110,51 +1206,45 @@ body {
         /* ===== TOKEN : Tablet ============================================ */
         --u: clamp(0.72px, 100vw / 1430, 0.9px);
 
-        --pad-top: 118;
-        --pad-bottom: 80;
+        --pad-top: 96;
+        --pad-bottom: 60;
 
         --fs-eyebrow: 24;
         --fs-heading: 50;
-        --gap-heading: 10;
-
-        --gap-tabs: 72;
-        --tab-w: 168;
+        --gap-tabs: 70;
+        --tab-w: 165;
         --tab-h: 66;
         --tab-gap: 26;
         --fs-tab-sm: 18;
         --fs-tab-lg: 22;
 
-        --gap-sub: 60;
+        --gap-sub: 56;
         --fs-sub: 27;
+        --gap-award: 32;
+        --fs-award: 44;
+        --fs-award-point: 64;
+        --laurel-w: 72;
+        --laurel-x: 260;
 
-        --gap-award: 4;
-        --fs-award: 32;
-        --fs-award-point: 42;
-
-        --gap-visual: 54;
+        --gap-visual: 44;
         --visual-w: 240;
-
-        --gap-desc: 64;
+        --gap-desc: 38;
         --fs-desc: 21;
+
+        --light-x: 560;
+        --light-w: 520;
+        --light-h: 1200;
+
+        --b1-x: -430;
+        --b1-y: 30;
+        --b1-w: 190;
+        --b2-x: 330;
+        --b2-y: 560;
+        --b2-w: 170;
+        --b3-x: -470;
+        --b3-y: 820;
+        --b3-w: 150;
         /* ================================================================ */
-    }
-
-    .section1__boom--1 {
-        left: 3%;
-        top: 4%;
-        width: 15%;
-    }
-
-    .section1__boom--2 {
-        left: 82%;
-        top: 38%;
-        width: 14%;
-    }
-
-    .section1__boom--3 {
-        left: 10%;
-        top: 74%;
-        width: 9%;
     }
 }
 
@@ -1167,8 +1257,8 @@ body {
         /* ===== TOKEN : Mobile (시안 기준 폭 390) ========================== */
         --u: min(1.45px, 100vw / 390);
 
-        --pad-top: 40;
-        --pad-bottom: 44;
+        --pad-top: 44;
+        --pad-bottom: 36;
 
         --fs-eyebrow: 13;
         --fs-heading: 27;
@@ -1187,17 +1277,32 @@ body {
 
         --gap-sub: 30;
         --fs-sub: 15;
+        --gap-award: 18;
+        --fs-award: 24;
+        --fs-award-point: 36;
+        --laurel-w: 42;
+        --laurel-x: 152;
+        --laurel-y: 2;
 
-        --gap-award: 2;
-        --fs-award: 18;
-        --fs-award-point: 26;
-        --gap-award-inner: 6;
-
-        --gap-visual: 28;
+        --gap-visual: 22;
         --visual-w: 135;
-
-        --gap-desc: 30;
+        --gap-desc: 22;
         --fs-desc: 13;
+
+        --light-w: 190;
+        --light-h: 560;
+        --light-x: 165;
+        --light-blur: 22;
+
+        --b1-x: -190;
+        --b1-y: 10;
+        --b1-w: 86;
+        --b2-x: 120;
+        --b2-y: 330;
+        --b2-w: 76;
+        --b3-x: -195;
+        --b3-y: 470;
+        --b3-w: 70;
         /* ================================================================ */
     }
 
@@ -1216,35 +1321,13 @@ body {
     .section1__tab {
         min-width: 0;
     }
-
-    .section1__tab-sm,
-    .section1__tab-lg {
-        white-space: nowrap;
-    }
-
-    .section1__boom--1 {
-        left: -4%;
-        top: 3%;
-        width: 26%;
-    }
-
-    .section1__boom--2 {
-        left: 80%;
-        top: 34%;
-        width: 24%;
-    }
-
-    .section1__boom--3 {
-        left: 2%;
-        top: 70%;
-        width: 16%;
-    }
 }
 
 @media (max-width: 360px) {
     .section1 {
         --fs-heading: 25;
         --fs-tab-lg: 13;
+        --fs-award-point: 33;
         --fs-desc: 12;
     }
 }
@@ -1280,7 +1363,7 @@ body {
 
 .section2 {
     /* ---- 색상 · 폰트 (hero.css 변수가 없어도 단독 동작하도록 기본값 포함) ---- */
-    --s2-bg: #19196F;
+    --s2-bg: #E8F3FF;
     --s2-wave: #27006A;
     --s2-mint: var(--mint, #3BD7A0);
     --s2-navy: #19196F;
@@ -1422,13 +1505,13 @@ body {
 }
 
 /* 우측 하단 청록 글로우 */
-.section2__glow {
+/* .section2__glow {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse calc(640 * var(--u)) calc(400 * var(--u)) at 67.7% 93%,
             rgba(25, 145, 150, .42) 0%,
             rgba(25, 145, 150, 0) 100%);
-}
+} */
 
 
 /* =========================================================================
@@ -1462,7 +1545,7 @@ body {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    filter: drop-shadow(0 0 calc(6 * var(--u)) rgba(59, 215, 160, .55));
+    filter: drop-shadow(0 0 calc(6 * var(--u)) rgba(0, 100, 255, 1));
 }
 
 .section2__qframe::before {
@@ -1471,7 +1554,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    border: max(2px, calc(var(--qbox-border) * var(--u))) solid var(--s2-mint);
+    border: max(2px, calc(var(--qbox-border) * var(--u))) solid #0070E2;
     border-radius: calc(var(--qbox-radius) * var(--u));
     -webkit-mask:
         linear-gradient(to right, transparent calc(12 * var(--u)), #000 calc(12 * var(--u))),
@@ -1490,7 +1573,7 @@ body {
     height: auto;
     overflow: visible;
     fill: none;
-    stroke: #fff;
+    stroke: #0064FF;
     stroke-width: 3.4;
     stroke-linejoin: round;
 }
@@ -1501,7 +1584,7 @@ body {
     font-size: calc(var(--fs-qlabel) * var(--u));
     font-weight: normal;
     line-height: 1;
-    color: #fff;
+    color: #0064FF;
 }
 
 .section2__qlabel span {
@@ -1518,7 +1601,7 @@ body {
     bottom: calc(1 * var(--u));
     z-index: -1;
     height: calc(var(--qlabel-bar-h) * var(--u));
-    background: var(--s2-mint);
+    background: #BADCFF;
 }
 
 .section2__qtext {
@@ -1527,7 +1610,7 @@ body {
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: var(--lh-qtext);
-    color: #fff;
+    color: #202632;
 }
 
 .section2__qtext strong {
@@ -1543,6 +1626,7 @@ body {
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: 1.4;
+    color: #202632;
 }
 
 .section2__highlight {
@@ -1552,12 +1636,12 @@ body {
 .section2__highlight span {
     display: inline-block;
     padding: 0 calc(var(--hl-pad-x) * var(--u));
-    background: #fff;
+    background: #0064FF;
     font-size: calc(var(--fs-hl) * var(--u));
     font-weight: 800;
     font-variation-settings: 'wght' 800;
     line-height: calc(var(--hl-h) * var(--u));
-    color: var(--s2-navy);
+    color: #fff;
 }
 
 .section2__desc {
@@ -1566,6 +1650,7 @@ body {
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: 1.4;
+    color: #202632;
 }
 
 
@@ -1587,7 +1672,7 @@ body {
     left: calc(var(--col-label) + var(--col-other));
     width: var(--col-brand);
     border-radius: calc(var(--col-radius) * var(--u));
-    background: var(--s2-blue);
+    background: #0064FF;
     box-shadow: 0 0 calc(30 * var(--u)) rgba(0, 112, 226, .55);
 }
 
@@ -1633,7 +1718,7 @@ body {
     font-size: calc(var(--fs-th-other) * var(--u));
     font-weight: 400;
     font-variation-settings: 'wght' 400;
-    color: var(--s2-sky);
+    color: rgba(0, 112, 226, .5);
 }
 
 .section2__table thead .is-brand {
@@ -1657,7 +1742,7 @@ body {
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: 1.3;
-    color: #fff;
+    color: #0070E2;
 }
 
 .section2__table .is-other {
@@ -1840,227 +1925,121 @@ body {
     }
 }
 
-/* =========================================================================
-   section3.css
-   -------------------------------------------------------------------------
-   시안 기준 : PC 1920 × 568
-   다른 섹션과 동일하게 "시안 px 숫자 × --u" 방식입니다.
-   크기 수정은 각 브레이크포인트의  ===== TOKEN =====  블록 숫자만 고치세요.
- 
-   [섹션 이음새]
-   · section3 에는 margin 이 없고, 여백은 전부 .section3__inner 의 padding 입니다.
-   · 배경은 이미지 + 같은 계열 배경색을 함께 깔아 로딩 중에도 틈이 보이지 않습니다.
-========================================================================= */
+*=========================================================================section3.css — 이벤트 배너 슬라이드 ------------------------------------------------------------------------- · 배너 이미지 기준 : 1920 × 568 · 다른 섹션과 동일하게 "시안 px 숫자 × --u" 방식입니다. 크기 수정은=====TOKEN=====블록 숫자만 고치세요. [섹션 이음새] · section3 에는 margin 이 없습니다. 배너 이미지가 섹션 높이를 결정합니다. · 배너 양옆/위아래에 남는 여백은 --s3-bg 색으로 채워집니다.=========================================================================*/
+
+/* 전역 리셋이 달라도 틀어지지 않도록 (섹션 안에서만) */
+:where(.section3),
+:where(.section3) *,
+:where(.section3) *::before,
+:where(.section3) *::after {
+    box-sizing: border-box;
+}
+
+:where(.section3) :where(img) {
+    display: block;
+    max-width: 100%;
+}
+
 
 .section3 {
-    /* ---- 색상 · 폰트 (다른 섹션 변수가 없어도 단독 동작하도록 기본값 포함) ---- */
-    --s3-bg: #04002A;
-    --s3-mint: var(--mint, #3BD7A0);
-    --s3-lavender: #C7AAFF;
-    /* 무제한! */
-    --s3-btn-from: #37D3A0;
-    --s3-btn-to: #03A3A5;
+    /* ---- 색상 · 폰트 ---- */
+    --s3-bg: #05021A;
+    /* 배너 여백 색 (배너 가장자리와 비슷한 어두운 남색) */
+    --s3-btn-from: #3C76FF;
+    /* 버튼 그라디언트 */
+    --s3-btn-to: #0147FF;
     --s3-font: var(--font-head, 'FreesentationVF', 'Freesentation', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif);
 
-    /* ===== TOKEN : PC (시안 1920 × 568) ================================= */
+    /* ===== TOKEN : PC (배너 1920 × 568) ================================= */
     --u: min(1px, 100vw / 1920);
 
-    --pad-top: 37;
-    --pad-bottom: 34;
+    --banner-ratio: 1920 / 568;
+    /* 배너 이미지 비율 */
 
-    --fs-eyebrow: 16;
-    /* 학점은행제 원격수업 과정 '최초' 평가인정 */
-    --icon-size: 23;
-    /*   태극 아이콘 */
-    --icon-gap: 8;
-    --gap-note: 9;
-    --fs-note: 13;
-    /* (2004년 5개 시범기관) */
+    --btn-w: 220;
+    /* 버튼 */
+    --btn-h: 50;
+    --fs-btn: 18;
+    --btn-bottom: 34;
+    /* 배너 아래에서 띄우는 거리 */
 
-    --gap-cycle: 16;
-    --ring-w: 388;
-    /* 원 + 화살촉 전체 폭 (원만 357) */
-    --copy-shift: 18;
-    /* 가운데 문구를 원 중심보다 위로 올리는 값 ×2 */
-    --fs-title: 64;
-    /* 무제한! */
-    --fs-subtitle: 36;
-    /* 무료 재수강 이벤트 */
-    --gap-subtitle: 11;
-
-    --gap-btn: 35;
-    --btn-w: 171;
-    --btn-h: 38;
-    --fs-btn: 13;
-
-    /* 무한대 아이콘 (화면 중앙 기준 X 오프셋) */
-    --inf1-x: -640;
-    --inf1-y: 98;
-    --inf1-w: 201;
-    --inf2-x: 533;
-    --inf2-y: 363;
-    --inf2-w: 108;
-
-    /* 너무 작아지지 않게 하는 최소 글자 크기 (px) */
-    --min-small: 16;
-    /* ======================================
-    
-    ============================== */
+    --ctrl-b: 18;
+    /* 컨트롤 위치 */
+    --ctrl-r: 28;
+    --ctrl-size: 26;
+    /* ==================================================================== */
 
     position: relative;
     width: 100%;
     overflow: hidden;
     isolation: isolate;
-    background: var(--s3-bg) url('../img/section3/section3-bg.png') center bottom / cover no-repeat;
-}
-
-
-/* =========================================================================
-   배경 장식 : 무한대 아이콘
-========================================================================= */
-.section3__deco {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.section3__infinity {
-    position: absolute;
-    display: block;
-    height: auto;
-}
-
-.section3__infinity--1 {
-    left: calc(50% + var(--inf1-x) * var(--u));
-    top: calc(var(--inf1-y) * var(--u));
-    width: calc(var(--inf1-w) * var(--u));
-}
-
-.section3__infinity--2 {
-    left: calc(50% + var(--inf2-x) * var(--u));
-    top: calc(var(--inf2-y) * var(--u));
-    width: calc(var(--inf2-w) * var(--u));
-}
-
-
-/* =========================================================================
-   콘텐츠
-========================================================================= */
-.section3__inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: calc(var(--pad-top) * var(--u)) 20px calc(var(--pad-bottom) * var(--u));
+    background: var(--s3-bg);
     font-family: var(--s3-font);
-    color: #fff;
-    text-align: center;
-    word-break: keep-all;
-}
-
-/* 상단 문구 */
-.section3__eyebrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: calc(var(--icon-gap) * var(--u));
-    font-size: max(calc(var(--min-small) * 1px + 1px), calc(var(--fs-eyebrow) * var(--u)));
-    font-weight: 400;
-    font-variation-settings: 'wght' 400;
-    line-height: 1.4;
-    margin: 0;
-}
-
-.section3__eyebrow strong {
-    font-weight: 700;
-    font-variation-settings: 'wght' 700;
-}
-
-.section3__eyebrow-icon {
-    display: block;
-    flex: none;
-    width: max(16px, calc(var(--icon-size) * var(--u)));
-    height: auto;
-}
-
-.section3__note {
-    margin-top: calc(var(--gap-note) * var(--u));
-    font-size: max(calc(var(--min-small) * 1px), calc(var(--fs-note) * var(--u)));
-    font-weight: 400;
-    font-variation-settings: 'wght' 400;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, .88);
 }
 
 
-/* ---------- 순환 화살표 ---------- */
-.section3__cycle {
-    position: relative;
-    width: calc(var(--ring-w) * var(--u));
-    margin-top: calc(var(--gap-cycle) * var(--u));
-}
-
-.section3__ring {
-    display: block;
+/* =========================================================================
+   Swiper 레이아웃
+   · 슬라이드 높이는 "가장 높은 슬라이드" 기준으로 모두 같아집니다.
+========================================================================= */
+.section3__swiper {
     width: 100%;
-    height: auto;
-    overflow: visible;
-    transform-origin: 50% 50%;
 }
 
-.section3__copy {
-    position: absolute;
-    inset: 0;
+.section3__swiper .swiper-slide {
+    height: auto;
+}
+
+.section3__slide {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: calc(var(--copy-shift) * var(--u));
+    overflow: hidden;
 }
 
-.section3__title {
-    font-size: calc(var(--fs-title) * var(--u));
-    font-weight: 700;
-    font-variation-settings: 'wght' 800;
-    line-height: 1.2;
-    color: var(--s3-lavender);
+/* 배너 이미지 : 비율을 지키며 슬라이드 안에 꽉 차게 (잘림 없음) */
+.section3__banner-box {
+    position: relative;
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: var(--banner-ratio);
 }
 
-.section3__subtitle {
-    margin-top: calc(var(--gap-subtitle) * var(--u));
-    font-size: calc(var(--fs-subtitle) * var(--u));
-    font-weight: 400;
-    line-height: 1.2;
-    white-space: nowrap;
-}
-
-.section3__subtitle strong {
-    font-weight: 700;
+.section3__banner {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 
-/* ---------- 버튼 ---------- */
+/* =========================================================================
+   버튼 — 배너 아래 가운데
+========================================================================= */
 .section3__btn {
+    position: absolute;
+    left: 50%;
+    bottom: calc(var(--btn-bottom) * var(--u));
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: calc(8 * var(--u));
     min-width: calc(var(--btn-w) * var(--u));
-    height: max(36px, calc(var(--btn-h) * var(--u)));
-    margin-top: calc(var(--gap-btn) * var(--u));
-    padding: 11px 29px;
+    height: max(38px, calc(var(--btn-h) * var(--u)));
+    padding-inline: calc(22 * var(--u));
     border-radius: 999px;
-    background: linear-gradient(90deg, #3BD7A0 0%, #00A0A7 100%);
-    box-shadow: 0 0 calc(14 * var(--u)) rgba(59, 215, 160, .55);
-    font-size: max(calc(var(--min-small) * 1.2px), calc(var(--fs-btn) * var(--u)));
+    background: linear-gradient(90deg, var(--s3-btn-from) 0%, var(--s3-btn-to) 100%);
+    box-shadow: 0 calc(4 * var(--u)) calc(18 * var(--u)) rgba(60, 118, 255, .45);
+    font-size: max(13px, calc(var(--fs-btn) * var(--u)));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
     line-height: 1;
     color: #fff;
     white-space: nowrap;
     text-decoration: none;
+    transform: translateX(-50%);
     transition: transform .25s ease, box-shadow .25s ease;
 }
 
@@ -2070,8 +2049,8 @@ body {
 
 .section3__btn:hover,
 .section3__btn:focus-visible {
-    transform: translateY(-2px);
-    box-shadow: 0 0 calc(24 * var(--u)) rgba(59, 215, 160, .8);
+    transform: translateX(-50%) translateY(-3px);
+    box-shadow: 0 calc(8 * var(--u)) calc(26 * var(--u)) rgba(60, 118, 255, .65);
 }
 
 .section3__btn:hover .section3__btn-arrow,
@@ -2086,67 +2065,109 @@ body {
 
 
 /* =========================================================================
-   애니메이션
-   · 무한대 아이콘은 CSS 만으로 둥실둥실
-   · 원 회전은 section3.js 가 .is-in 을 붙일 때 1회 (JS 없으면 정지 상태로 보임)
+   컨트롤 (이전 / 인디케이터 / 자동재생 / 다음)
 ========================================================================= */
-@keyframes s3Float {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(0deg);
-    }
-
-    50% {
-        transform: translateY(-12px) rotate(4deg);
-    }
+.section3__controls {
+    position: absolute;
+    right: calc(var(--ctrl-r) * var(--u));
+    bottom: calc(var(--ctrl-b) * var(--u));
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: calc(8 * var(--u));
+    padding: calc(6 * var(--u)) calc(10 * var(--u));
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .3);
+    backdrop-filter: blur(6px);
 }
 
-@keyframes s3Spin {
-    from {
-        transform: rotate(-360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
+.section3__nav,
+.section3__toggle {
+    display: flex;
+    width: max(24px, calc(var(--ctrl-size) * var(--u)));
+    height: max(24px, calc(var(--ctrl-size) * var(--u)));
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color .2s ease;
 }
 
-@keyframes s3Pop {
-    from {
-        opacity: 0;
-        transform: scale(.85);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+.section3__nav:hover,
+.section3__toggle:hover {
+    background: rgba(255, 255, 255, .34);
 }
 
-.section3__infinity--1 {
-    animation: s3Float 5s ease-in-out infinite;
+.section3__nav:focus-visible,
+.section3__toggle:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
 }
 
-.section3__infinity--2 {
-    animation: s3Float 4s ease-in-out -1.5s infinite;
+/* 아이콘은 CSS 로 그림 */
+.section3__nav::before {
+    content: '';
+    display: block;
+    width: 26%;
+    height: 26%;
+    margin: auto;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
 }
 
-.section3.is-in .section3__ring {
-    animation: s3Spin 1.4s cubic-bezier(.22, .61, .36, 1) both;
+.section3__nav--prev::before {
+    transform: translateX(15%) rotate(-135deg);
 }
 
-.section3.is-in .section3__title {
-    animation: s3Pop .6s cubic-bezier(.34, 1.56, .64, 1) .9s backwards;
+.section3__nav--next::before {
+    transform: translateX(-15%) rotate(45deg);
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* 재생중 = 일시정지 모양 / 멈춤 = 재생 모양 */
+.section3__toggle::before {
+    content: '';
+    display: block;
+    width: 26%;
+    height: 32%;
+    margin: auto;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+}
 
-    .section3__infinity,
-    .section3.is-in .section3__ring,
-    .section3.is-in .section3__title {
-        animation: none;
-    }
+.section3__toggle[aria-pressed="true"]::before {
+    width: 0;
+    height: 0;
+    margin: auto auto auto 38%;
+    border: 0;
+    border-left: 9px solid #fff;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+}
+
+.section3__pagination {
+    display: flex;
+    align-items: center;
+    gap: calc(6 * var(--u));
+}
+
+.section3__pagination .swiper-pagination-bullet {
+    width: max(7px, calc(8 * var(--u)));
+    height: max(7px, calc(8 * var(--u)));
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    opacity: .4;
+    cursor: pointer;
+    transition: width .25s ease, opacity .25s ease;
+}
+
+.section3__pagination .swiper-pagination-bullet-active {
+    width: max(18px, calc(22 * var(--u)));
+    opacity: 1;
 }
 
 
@@ -2158,30 +2179,13 @@ body {
         /* ===== TOKEN : Tablet ============================================ */
         --u: clamp(0.72px, 100vw / 1430, 0.9px);
 
-        --pad-top: 56;
-        --pad-bottom: 56;
-
-        --fs-eyebrow: 22;
-        --icon-size: 28;
-        --fs-note: 17;
-        --gap-note: 6;
-
-        --gap-cycle: 30;
-        --ring-w: 440;
-        --fs-title: 76;
-        --fs-subtitle: 40;
-
-        --gap-btn: 44;
-        --btn-w: 250;
-        --btn-h: 56;
+        --btn-w: 230;
+        --btn-h: 52;
         --fs-btn: 19;
+        --btn-bottom: 28;
 
-        --inf1-x: -560;
-        --inf1-y: 150;
-        --inf1-w: 200;
-        --inf2-x: 380;
-        --inf2-y: 470;
-        --inf2-w: 120;
+        --ctrl-b: 14;
+        --ctrl-r: 18;
         /* ================================================================ */
     }
 }
@@ -2189,56 +2193,51 @@ body {
 
 /* =========================================================================
    MOBILE (767px 이하)
+   · 배너가 작아져 버튼이 배너 위에 겹치면 읽기 어려우므로
+     버튼을 배너 "아래"로 내려 배치합니다.
+   · 모바일 전용 배너 이미지를 쓰면(<picture>) 가장 깔끔합니다.
 ========================================================================= */
 @media (max-width: 767px) {
     .section3 {
         /* ===== TOKEN : Mobile (시안 기준 폭 390) ========================== */
         --u: min(1.45px, 100vw / 390);
 
-        --pad-top: 40;
-        --pad-bottom: 44;
-
-        --fs-eyebrow: 13;
-        --icon-size: 17;
-        --icon-gap: 5;
-        --fs-note: 11;
-        --gap-note: 4;
-
-        --gap-cycle: 22;
-        --ring-w: 286;
-        --copy-shift: 12;
-        --fs-title: 48;
-        --fs-subtitle: 25;
-        --gap-subtitle: 6;
-
-        --gap-btn: 30;
         --btn-w: 210;
         --btn-h: 46;
-        --fs-btn: 14;
+        --fs-btn: 15;
+        --btn-bottom: 22;
+        /* 배너와 버튼 사이 간격으로 쓰임 */
 
-        --inf1-x: -215;
-        --inf1-y: 100;
-        --inf1-w: 76;
-        --inf2-x: 140;
-        --inf2-y: 300;
-        --inf2-w: 58;
-
-        --min-small: 11;
+        --ctrl-b: 10;
+        --ctrl-r: 12;
+        --ctrl-size: 24;
         /* ================================================================ */
 
-        background-position: 15% bottom;
+        padding-block: calc(24 * var(--u));
     }
 
-    .section3__inner {
-        padding-inline: 16px;
+    /* 아래쪽에 컨트롤 자리를 비워 둡니다 */
+    .section3__slide {
+        gap: calc(var(--btn-bottom) * var(--u));
+        padding-bottom: calc(48 * var(--u));
     }
-}
 
-@media (max-width: 360px) {
-    .section3 {
-        --fs-title: 44;
-        --fs-subtitle: 23;
-        --fs-eyebrow: 12;
+    .section3__btn {
+        position: static;
+        transform: none;
+    }
+
+    .section3__btn:hover,
+    .section3__btn:focus-visible {
+        transform: translateY(-3px);
+    }
+
+    /* 컨트롤은 버튼과 겹치지 않도록 아래 가운데로 */
+    .section3__controls {
+        left: 50%;
+        right: auto;
+        bottom: calc(8 * var(--u));
+        transform: translateX(-50%);
     }
 }
 
@@ -2320,7 +2319,7 @@ body {
     position: relative;
     width: 100%;
     overflow: hidden;
-    background-color: var(--s4-bg);
+    background-color: rgba(24, 132, 255, 0.10);
 }
 
 .section4__inner {
@@ -2339,11 +2338,12 @@ body {
 .section4__eyebrow span {
     display: inline-block;
     padding: 0 calc(3 * var(--u)) calc(2 * var(--u));
-    border-bottom: max(1px, calc(2 * var(--u))) solid rgba(255, 255, 255, .5);
+    border-bottom: max(1px, calc(2 * var(--u))) solid #202632;
     font-size: calc(var(--fs-eyebrow) * var(--u));
     font-weight: 400;
     font-variation-settings: 'wght' 400;
     line-height: 1.3;
+    color: #202632;
 }
 
 
@@ -2402,12 +2402,12 @@ body {
 .section4__head {
     padding: calc(var(--head-pad-top) * var(--u)) calc(24 * var(--u)) calc(var(--head-pad-bottom) * var(--u));
     border-radius: calc(var(--board-radius) * var(--u));
-    background: var(--s4-mint);
+    background: #0064FF;
 }
 
 .section4__title {
     font-size: calc(var(--fs-title) * var(--u));
-    font-weight: 800;
+    font-weight: 400;
     font-variation-settings: 'wght' 800;
     line-height: 1.2;
     color: #fff;
@@ -2415,7 +2415,7 @@ body {
 
 .section4__title em {
     font-style: normal;
-    color: var(--s4-yellow);
+    font-weight: 700;
 }
 
 .section4__lead {
@@ -2451,7 +2451,7 @@ body {
     width: calc(var(--ring-w) * var(--u));
     height: calc(var(--ring-h) * var(--u));
     border-radius: 999px;
-    background: var(--s4-bg);
+    background: #E8F3FF;
 }
 
 
@@ -2781,7 +2781,7 @@ body {
     width: 100%;
     overflow: hidden;
     isolation: isolate;
-    background: linear-gradient(180deg, #002246 0%, #19196F 100%);
+    background: linear-gradient(180deg, #2962F6 0%, #002A98 100%);
 }
 
 /* ---------- 상단 물결 ---------- */
@@ -2870,10 +2870,9 @@ body {
     align-items: center;
     margin-top: calc(var(--gap-card) * var(--u));
     padding: calc(var(--card-pad-top) * var(--u)) 0 calc(var(--card-pad-bottom) * var(--u));
-    border: max(2px, calc(var(--card-border) * var(--u))) solid var(--s5-mint);
-    border-radius: calc(var(--card-radius) * var(--u));
-    box-shadow: 0 0 calc(8 * var(--u)) rgba(59, 215, 160, .5),
-        inset 0 0 calc(8 * var(--u)) rgba(59, 215, 160, .12);
+    border-radius: 15px;
+    border: 3px solid #E5E8FF;
+    box-shadow: 0 2px 24px 1px #E5E8FF;
 }
 
 /* 세 칸 */
@@ -2953,7 +2952,7 @@ body {
     height: max(34px, calc(var(--btn-h) * var(--u)));
     margin-top: calc(var(--gap-btn) * var(--u));
     padding-inline: calc(16 * var(--u));
-    background: var(--accent);
+    border: 1px solid var(--accent);
     font-size: max(13px, calc(var(--fs-btn) * var(--u)));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
@@ -2969,6 +2968,8 @@ body {
     transform: translateY(-2px);
     filter: brightness(1.06);
     box-shadow: 0 calc(6 * var(--u)) calc(18 * var(--u)) color-mix(in srgb, var(--accent) 55%, transparent);
+    background-color: #fff;
+    color: #0064FF;
 }
 
 .section5__btn:focus-visible {
@@ -3258,7 +3259,7 @@ body {
     align-items: center;
     padding: calc(var(--pad-top) * var(--u)) 20px calc(var(--pad-bottom) * var(--u));
     font-family: var(--s6-font);
-    color: var(--s6-text);
+    color: #202632;
     text-align: center;
     word-break: keep-all;
 }
@@ -3279,7 +3280,7 @@ body {
 .section6__title span {
     display: inline-block;
     padding: 0 calc(var(--title-pad-x) * var(--u));
-    background: var(--s6-blue);
+    background: #0064FF;
     font-size: calc(var(--fs-title) * var(--u));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
@@ -3370,7 +3371,7 @@ body {
     font-weight: 500;
     font-variation-settings: 'wght' 500;
     line-height: 1;
-    color: #fff;
+    color: #0064FF;
     font-variant-numeric: tabular-nums;
 }
 
@@ -3418,16 +3419,17 @@ body {
     width: calc((var(--num-size) + 1) * var(--u));
     height: calc((var(--num-size) + 1) * var(--u));
     left: calc(-0.5 * var(--u));
-    background: var(--s6-blue);
+    background: #0064FF;
     font-size: calc(var(--fs-num-goal) * var(--u));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
+    color: #fff;
 }
 
 .section6__step.is-goal .section6__box {
     height: calc(var(--goal-h) * var(--u));
-    border-color: var(--s6-blue);
-    background: var(--s6-blue);
+    border-color: #0064FF;
+    background: #0064FF;
     box-shadow: 0 calc(4 * var(--u)) calc(14 * var(--u)) rgba(0, 112, 226, .35);
     font-size: calc(var(--fs-goal) * var(--u));
     color: #fff;
@@ -3667,7 +3669,7 @@ body {
 
 .section7 {
     /* ---- 색상 · 폰트 ---- */
-    --s7-bg: #E4F1FF;
+    --s7-bg: rgba(0, 100, 255, .1);
     --s7-blue: #0070E2;
     --s7-text: #111211;
     --s7-gray: #AAAAAA;
@@ -3784,7 +3786,7 @@ body {
     font-weight: 700;
     font-variation-settings: 'wght' 700;
     line-height: 1.1;
-    color: var(--s7-blue);
+    color: #0064FF;
 }
 
 .section7__line {
@@ -3887,8 +3889,6 @@ body {
     top: calc(var(--avatar-over) * -1 * var(--c));
     width: calc(var(--avatar) * var(--c));
     aspect-ratio: 1;
-    border-radius: 50%;
-    background: var(--s7-blue);
     overflow: hidden;
     transform: translateX(-50%);
 }
@@ -3908,7 +3908,7 @@ body {
     font-weight: 600;
     font-variation-settings: 'wght' 600;
     line-height: 1.5;
-    color: var(--s7-text);
+    color: #202632;
     margin-bottom: calc(var(--gap-info) * var(--c));
     /* 문장 ↔ 박스 최소 간격 */
 }
@@ -3969,7 +3969,7 @@ body {
     font-size: calc(var(--fs-after) * var(--c));
     font-weight: 700;
     font-variation-settings: 'wght' 700;
-    color: var(--s7-blue);
+    color: #0064FF;
     white-space: nowrap;
 }
 
